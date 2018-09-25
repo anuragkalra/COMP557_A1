@@ -71,6 +71,7 @@ public class Parser {
 	public static DAGNode createJoint( Node dataNode ) {
 		String type = dataNode.getAttributes().getNamedItem("type").getNodeValue();
 		String name = dataNode.getAttributes().getNamedItem("name").getNodeValue();
+		//String position = dataNode.getAttributes().getNamedItem("position").getNodeValue();
 		Tuple3d t;
 		if ( type.equals("freejoint") ) {
 			FreeJoint joint = new FreeJoint( name );
@@ -78,17 +79,17 @@ public class Parser {
 		} else if ( type.equals("ballxyz") ) {
 			// position is optional (ignored if missing) but should probably be a required attribute!  
 			// Could add optional attributes for limits (to all joints)
-
-//			BallXYZ joint = new BallXYZ( name );
-//			if ( (t=getTuple3dAttr(dataNode,"position")) != null ) joint.setPosition( t );			
-//			return joint;
+			
+			BallJoint joint = new BallJoint(name, 0, 0, 0);
+			if ( (t=getTuple3dAttr(dataNode,"position")) != null ) joint.setPosition( t );			
+			return joint;
 			
 		} else if ( type.equals("hinge") ) {
 			// position and axis are required... passing null to set methods
 			// likely to cause an expection (perhaps OK)
 			
-//			Hinge joint = new Hinge( name );
-//			joint.setPosition( getTuple3dAttr(dataNode,"position") );
+			HingeJoint joint = new HingeJoint(name, -180, 180, 0, 0, 0);
+			joint.setPosition( getTuple3dAttr(dataNode,"position") );
 //			joint.setAxis( getTuple3dAttr(dataNode,"axis") );
 //			return joint;
 			

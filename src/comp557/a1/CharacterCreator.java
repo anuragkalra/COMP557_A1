@@ -27,16 +27,40 @@ public class CharacterCreator {
 		} else {
 			// TODO: Objective 1,2,3,4: test DAG nodes by creating a small DAG in the CharacterCreator.create() method 
 			
-			FreeJoint fj = new FreeJoint("kush");
+			FreeJoint root = new FreeJoint("root");
 			
 			
+			BallJoint lShoulder = new BallJoint("lShoulder", 1, 1, 0);
+			BallJoint rShoulder = new BallJoint("rShoulder", -1, 1, 0);
+			
+			root.add(lShoulder);
+			root.add(rShoulder);
+			
+			HingeJoint lElbow = new HingeJoint("lElbow", -180, 180, 2, 0, 0);
+			HingeJoint rElbow = new HingeJoint("rElbow", -180, 180, -2, 0, 0);
+			
+			lShoulder.add(lElbow);
+			rShoulder.add(rElbow);
+			
+			BallJoint lHip = new BallJoint("lHip", 1, -2, 0);
+			BallJoint rHip = new BallJoint("rHip", -1, -2, 0);
+			
+			root.add(lHip);
+			root.add(rHip);
+			
+			HingeJoint lKnee = new HingeJoint("lKnee", -180, 180, 0, -2, 0);
+			HingeJoint rKnee = new HingeJoint("rKnee", -180, 180, 0, -2, 0);
+			
+			lHip.add(lKnee);
+			rHip.add(rKnee);
 			// Use this for testing, but ultimately it will be more interesting
 			// to create your character with an xml description (see example).
 			
 			// Here we just return null, which will not be very interesting, so write
 			// some code to create a test or partial charcter and return the root node.
 
-			return null;
+			//return root;
+			return root;
 		}
 	}
 }
