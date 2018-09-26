@@ -14,6 +14,7 @@ public class FreeJoint extends DAGNode {
 	DoubleParameter ry;
 	DoubleParameter rz;
 		
+	//COMPLETE
 	public FreeJoint( String name ) {
 		super(name);
 		dofs.add( tx = new DoubleParameter( name+" tx", 0, -2, 2 ) );		
@@ -24,10 +25,11 @@ public class FreeJoint extends DAGNode {
 		dofs.add( rz = new DoubleParameter( name+" rz", 0, -180, 180 ) );
 	}
 	
+	//COMPLETE
 	@Override
 	public void display(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
-		// TODO: Objective 1: implement the FreeJoint display method
+		// TODO: Objective 1: implement the FreeJoint display method - DONE
 		
 		gl.glPushMatrix();		
 		

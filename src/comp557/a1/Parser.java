@@ -71,7 +71,6 @@ public class Parser {
 	public static DAGNode createJoint( Node dataNode ) {
 		String type = dataNode.getAttributes().getNamedItem("type").getNodeValue();
 		String name = dataNode.getAttributes().getNamedItem("name").getNodeValue();
-		//String position = dataNode.getAttributes().getNamedItem("position").getNodeValue();
 		Tuple3d t;
 		if ( type.equals("freejoint") ) {
 			FreeJoint joint = new FreeJoint( name );
@@ -79,17 +78,46 @@ public class Parser {
 		} else if ( type.equals("ballxyz") ) {
 			// position is optional (ignored if missing) but should probably be a required attribute!  
 			// Could add optional attributes for limits (to all joints)
+
+			double px = 0;
+			double py = 0;
+			double pz = 0;
+			if ( (t=getTuple3dAttr(dataNode,"position")) != null ) {
+				px = t.x;
+				py = t.y;
+				pz = t.z;
+			}
 			
-			BallJoint joint = new BallJoint(name, 0, 0, 0);
-			if ( (t=getTuple3dAttr(dataNode,"position")) != null ) joint.setPosition( t );			
+			double rxMin = -180;
+			double ryMin = -180;
+			double rzMin = -180;
+			if ( (t=getTuple3dAttr(dataNode,"rMins")) != null ) {
+				rxMin = t.x;
+				ryMin = t.y;
+				rzMin = t.z;
+			}
+			
+			double rxMax = 180;
+			double ryMax = 180;
+			double rzMax = 180;
+			if ( (t=getTuple3dAttr(dataNode,"rMaxs")) != null ) {
+				rxMax = t.x;
+				ryMax = t.y;
+				rzMax = t.z;
+			}
+			
+			BallJoint joint = new BallJoint(name, rxMin, rxMax, ryMin, ryMax, rzMin, rzMax, px, py, pz);
+			
+//			BallXYZ joint = new BallXYZ( name );
+//			if ( (t=getTuple3dAttr(dataNode,"position")) != null ) joint.setPosition( t );			
 			return joint;
 			
 		} else if ( type.equals("hinge") ) {
 			// position and axis are required... passing null to set methods
 			// likely to cause an expection (perhaps OK)
 			
-			HingeJoint joint = new HingeJoint(name, -180, 180, 0, 0, 0);
-			joint.setPosition( getTuple3dAttr(dataNode,"position") );
+//			Hinge joint = new Hinge( name );
+//			joint.setPosition( getTuple3dAttr(dataNode,"position") );
 //			joint.setAxis( getTuple3dAttr(dataNode,"axis") );
 //			return joint;
 			

@@ -28,31 +28,69 @@ public class CharacterCreator {
 			// TODO: Objective 1,2,3,4: test DAG nodes by creating a small DAG in the CharacterCreator.create() method 
 			
 			FreeJoint root = new FreeJoint("root");
+			BodyBox rootBox = new BodyBox("", 1, 2, 2, 2);
+
+			BallJoint lShoulder = new BallJoint("lShoulder", -90, 90, -90, 90, -90, 90, 3, 3, 0);
+			BallJoint rShoulder = new BallJoint("rShoulder", -90, 90, -90, 90, -90, 90, -3, 3, 0);
 			
-			
-			BallJoint lShoulder = new BallJoint("lShoulder", 1, 1, 0);
-			BallJoint rShoulder = new BallJoint("rShoulder", -1, 1, 0);
-			
+			BodyBox lShoulderBox = new BodyBox("", 1, 1, 1, 2);
+			BodyBox rShoulderBox = new BodyBox("", 1, 1, 1, 2);
+
+			root.add(rootBox);
 			root.add(lShoulder);
 			root.add(rShoulder);
-			
-			HingeJoint lElbow = new HingeJoint("lElbow", -180, 180, 2, 0, 0);
-			HingeJoint rElbow = new HingeJoint("rElbow", -180, 180, -2, 0, 0);
-			
+
+
+			HingeJoint lElbow = new HingeJoint("lElbow", 1, -180, 180, 2, 0, 0);
+			HingeJoint rElbow = new HingeJoint("rElbow", 1, -180, 180, -2, 0, 0);
+			BodyBox lElbowBox = new BodyBox("", 1, 2, 2, 2, 3, 0, 0);
+			BodyBox rElbowBox = new BodyBox("", 1, 2, 2, 2);
+
+			lShoulder.add(lShoulderBox);
 			lShoulder.add(lElbow);
+			rShoulder.add(rShoulderBox);
 			rShoulder.add(rElbow);
-			
-			BallJoint lHip = new BallJoint("lHip", 1, -2, 0);
-			BallJoint rHip = new BallJoint("rHip", -1, -2, 0);
-			
+
+			lElbow.add(lElbowBox);
+			rElbow.add(rElbowBox);
+
+			BallJoint lHip = new BallJoint("lHip", -90, 90, -90, 90, -90, 90, 2, -2, 0);
+			BallJoint rHip = new BallJoint("rHip", -90, 90, -90, 90, -90, 90, -2, -2, 0);
+			BodyBox lHipBox = new BodyBox("", 1, 3, 3, 3);
+			BodyBox rHipBox = new BodyBox("", 1, 3, 3, 3);
+
 			root.add(lHip);
 			root.add(rHip);
-			
-			HingeJoint lKnee = new HingeJoint("lKnee", -180, 180, 0, -2, 0);
-			HingeJoint rKnee = new HingeJoint("rKnee", -180, 180, 0, -2, 0);
-			
+
+			HingeJoint lKnee = new HingeJoint("lKnee", 0, -180, 180, 0, -2, 0);
+			HingeJoint rKnee = new HingeJoint("rKnee", 0, -180, 180, 0, -2, 0);
+			BodyBox lKneeBox = new BodyBox("", 1, 2, 2, 2);
+			BodyBox rKneeBox = new BodyBox("", 1, 2, 2, 2);
+
 			lHip.add(lKnee);
 			rHip.add(rKnee);
+			lHip.add(lHipBox);
+			rHip.add(rHipBox);
+
+			lKnee.add(lKneeBox);
+			rKnee.add(rKneeBox);
+
+			BallJoint lAnkle = new BallJoint("lAnkle",-90, 90, -90, 90, -90, 90, 1, -3, 0);
+			BallJoint rAnkle = new BallJoint("rAnkle",-90, 90, -90, 90, -90, 90, -1, -3, 0);
+			//BodyBox lAnkleBox = new BodyBox("", 1, 1, 1, 4);
+			BodySphere lAnkleSphere = new BodySphere("", 1, 2, 2, 2);
+			BodyBox rAnkleBox = new BodyBox("", 1, 1, 1, 4);
+
+			lKnee.add(lAnkle);
+			rKnee.add(rAnkle);
+
+			//lAnkle.add(lAnkleBox);
+			lAnkle.add(lAnkleSphere);
+			rAnkle.add(rAnkleBox);
+			
+			
+			
+			
 			// Use this for testing, but ultimately it will be more interesting
 			// to create your character with an xml description (see example).
 			
