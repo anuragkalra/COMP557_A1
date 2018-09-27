@@ -75,9 +75,7 @@ public class Parser {
 		if ( type.equals("freejoint") ) {
 			FreeJoint joint = new FreeJoint( name );
 			return joint;
-		} else if ( type.equals("ballxyz") ) {
-			// position is optional (ignored if missing) but should probably be a required attribute!  
-			// Could add optional attributes for limits (to all joints)
+		} else if ( type.equals("ball") ) {
 
 			double px = 0;
 			double py = 0;
@@ -107,20 +105,33 @@ public class Parser {
 			}
 			
 			BallJoint joint = new BallJoint(name, rxMin, rxMax, ryMin, ryMax, rzMin, rzMax, px, py, pz);
-			
-//			BallXYZ joint = new BallXYZ( name );
-//			if ( (t=getTuple3dAttr(dataNode,"position")) != null ) joint.setPosition( t );			
+						
 			return joint;
 			
 		} else if ( type.equals("hinge") ) {
-			// position and axis are required... passing null to set methods
-			// likely to cause an expection (perhaps OK)
 			
-//			Hinge joint = new Hinge( name );
-//			joint.setPosition( getTuple3dAttr(dataNode,"position") );
-//			joint.setAxis( getTuple3dAttr(dataNode,"axis") );
-//			return joint;
+			double px = 0;
+			double py = 0;
+			double pz = 0;
 			
+			if ( (t=getTuple3dAttr(dataNode,"position")) != null ) {
+				px = t.x;
+				py = t.y;
+				pz = t.z;
+			}
+			
+			double axis = 0;
+			double min = -180;
+			double max = 180;
+			
+			if ( (t=getTuple3dAttr(dataNode,"angles")) != null ) {
+				axis = t.x;
+				min = t.y;
+				max = t.z;
+			}
+			
+			HingeJoint joint = new HingeJoint(name, axis, min, max, px, py, pz);
+			return joint;
 		}
 		return null;
 	}
@@ -135,17 +146,58 @@ public class Parser {
 		String name = dataNode.getAttributes().getNamedItem("name").getNodeValue();
 		Tuple3d t;
 		if ( type.equals("box" ) ) {
-//			BodyBox geom = new BodyBox( name );
-//			if ( (t=getTuple3dAttr(dataNode,"center")) != null ) geom.setCentre( t );
-//			if ( (t=getTuple3dAttr(dataNode,"scale")) != null ) geom.setScale( t );
-//			if ( (t=getTuple3dAttr(dataNode,"color")) != null ) geom.setColor( t );
-//			return geom;
+			
+			//Capture center information
+			double tx = 0;
+			double ty = 0;
+			double tz = 0;
+			
+			if ( (t=getTuple3dAttr(dataNode,"center")) != null ) {
+				tx = t.x;
+				ty = t.y;
+				tz = t.z;
+			}
+			
+			//Capture scaling information
+			double xScale = 1;
+			double yScale = 1;
+			double zScale = 1;
+			
+			if ( (t=getTuple3dAttr(dataNode,"scale")) != null ) {
+				xScale = t.x;
+				yScale = t.y;
+				zScale = t.z;
+			}
+			
+			BodyBox box = new BodyBox(name, 1, xScale, yScale, zScale, tx, ty, tz);
+			return box;
 		} else if ( type.equals( "sphere" )) {
-//			BodySphere geom = new BodySphere( name );				
-//			if ( (t=getTuple3dAttr(dataNode,"center")) != null ) geom.setCentre( t );
-//			if ( (t=getTuple3dAttr(dataNode,"scale")) != null ) geom.setScale( t );
-//			if ( (t=getTuple3dAttr(dataNode,"color")) != null ) geom.setColor( t );
-//			return geom;	
+			double radius = 1;
+			
+			//Capture center information
+			double tx = 0;
+			double ty = 0;
+			double tz = 0;
+			
+			if ( (t=getTuple3dAttr(dataNode,"center")) != null ) {
+				tx = t.x;
+				ty = t.y;
+				tz = t.z;
+			}
+			
+			//Capture scaling information
+			double xScale = 1;
+			double yScale = 1;
+			double zScale = 1;
+			
+			if ( (t=getTuple3dAttr(dataNode,"scale")) != null ) {
+				xScale = t.x;
+				yScale = t.y;
+				zScale = t.z;
+			}
+			
+			BodySphere sphere = new BodySphere(name, radius, xScale, yScale, zScale, tx, ty, tz);
+			return sphere;
 		}
 		return null;		
 	}

@@ -43,8 +43,7 @@ public class BodyBox extends DAGNode {
 	public void display(GLAutoDrawable drawable) {
 		GL2 gl = drawable.getGL().getGL2();
 		
-		gl.glPushMatrix();		
-		
+		gl.glPushMatrix();
 		gl.glTranslated(this.tx, this.ty, this.tz);
 		gl.glScaled(this.xScale, this.yScale, this.zScale);
 		glut.glutSolidCube(this.size);

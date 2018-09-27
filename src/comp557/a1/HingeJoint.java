@@ -18,9 +18,9 @@ public class HingeJoint extends DAGNode {
 	double ty;
 	double tz;
 	
-	int axis;
+	double axis;
 		
-	public HingeJoint( String name, int axis, double min, double max, double px, double py, double pz) {
+	public HingeJoint( String name, double axis, double min, double max, double px, double py, double pz) {
 		super(name);
 		this.axis = axis;
 		if(axis == 0) {
