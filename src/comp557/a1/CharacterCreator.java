@@ -28,12 +28,7 @@ public class CharacterCreator {
 			// TODO: Objective 1,2,3,4: test DAG nodes by creating a small DAG in the CharacterCreator.create() method 
 			
 			FreeJoint root = new FreeJoint("root");
-			BodyBox rootBox = new BodyBox("", 1, 2, 2, 2);
-			root.add(rootBox);
-			BallJoint b = new BallJoint("b", 0, 180, 0, 180, 0, 180, 2, 2, 2);
-			root.add(b);
-			BodySphere bs = new BodySphere("bs", 1, 2, 3, 2, 3, 3, 3);
-			b.add(bs);
+			
 			
 			// Use this for testing, but ultimately it will be more interesting
 			// to create your character with an xml description (see example).

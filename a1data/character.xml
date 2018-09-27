@@ -2,22 +2,44 @@
 <!-- hierachrical definition of a character -->
 <doc>
     <node type="freejoint" name="root">
-    	<geom type="box" name="torso" center="0 0.5 0" scale="1 1 0.5"  />
+ 		<geom type="box" name="head box" center="0 0 0" scale="2 2 0.5" />
+ 		<node type="ball" name="head" position="0 2 0" rMins="-10 -30 -20" rMaxs="10 30 20">
+ 			<geom type="box" name="head box" center="0 -.3 0" scale="0.5 1.5 0.5" />
+    	</node>   
     	<node type="ball" name="r shoulder" position="-1 1 0" rMins="-90 -90 -90" rMaxs="90 90 90">
-    		<node type="hinge" name="r elbow" position="-1 0 0" angles="1 -180 180">
+    		<geom type="box" name="r shoulder box" center="-0.5 0 0" scale="1 1 0.5" />
+    		<node type="hinge" name="r elbow" position="-1 0 0" angles="1 0 120">
+    			<geom type="box" name="r elbow box" center="-0.5 0 0" scale="1 1 0.5" />
+    			<node type="hinge" name="r wrist" position="-1 0 0" angles="1 0 80">
+    				<geom type="box" name="r wrist box" center="-0.5 0 0" scale="1 1 0.5" />
+    			</node>
     		</node>
     	</node>
     	<node type="ball" name="l shoulder" position="1 1 0" rMins="-90 -90 -90" rMaxs="90 90 90">
-    		<node type="hinge" name="l elbow" position="1 0 0" angles="1 -180 180">
+    		<geom type="box" name="l shoulder box" center="0.5 0 0" scale="1 1 0.5" />
+    		<node type="hinge" name="l elbow" position="1 0 0" angles="1 -120 0">
+    			<geom type="box" name="l elbow box" center="0.5 0 0" scale="1 1 0.5" />
+    			<node type="hinge" name="l wrist" position="1 0 0" angles="1 -80 0">
+    				<geom type="box" name="l wrist box" center="0.5 0 0" scale="1 1 0.5" />
+    			</node>
     		</node>
     	</node>
-    	<node type="ball" name="r hip" position="-1 -2 0" rMins="-90 -90 -90" rMaxs="90 90 90">
-    		<node type="hinge" name="r knee" position="0 -1 0" angles="1 -180 180">
+    	<node type="ball" name="r hip" position="-0.5 -1.5 0" rMins="-90 -90 -90" rMaxs="90 0 0">
+    		<geom type="box" name="r hip box" center="0 -.5 0" scale="0.5 2 0.5" />
+    		<node type="hinge" name="r knee" position="0 -1.5 0" angles="0 0 110">
+    			<geom type="box" name="r knee box" center="0 0 0" scale="0.5 1 0.5" />
+    			<node type="hinge" name="r ankle" position="0 -1.5 0" angles="0 -50 90">
+    				<geom type="sphere" name="r ankle sphere" center="0 0 0.7" scale="0.5 1 2" />
+    			</node>
     		</node>
     	</node>
-    	<node type="ball" name="l hip" position="1 -2 0" rMins="-90 -90 -90" rMaxs="90 90 90">
-    		<node type="hinge" name="l knee" position="0 -1 0" angles="1 -180 180">
-    			<geom type="sphere" name="l knee ball" center="0 0 0" scale="1 1 0.5"  />
+    	<node type="ball" name="l hip" position="0.5 -1.5 0" rMins="-90 0 0" rMaxs="90 90 90">
+    		<geom type="box" name="l hip box" center="0 -.5 0" scale="0.5 2 0.5" />
+    		<node type="hinge" name="l knee" position="0 -1.5 0" angles="0 0 110">
+    			<geom type="box" name="l knee box" center="0 0 0" scale="0.5 1 0.5" />
+    			<node type="hinge" name="l ankle" position="0 -1.5 0" angles="0 -50 90">
+    				<geom type="sphere" name="l ankle sphere" center="0 0 0.7" scale="0.5 1 2" />
+    			</node>
     		</node>
     	</node>    	
 	</node>
